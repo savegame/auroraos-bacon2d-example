@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=ru.sashikknox.bacon2d
+Exec=/usr/bin/ru.sashikknox.bacon2d
+Name=Bacon2D
+Name[ru]=Bacon2D
+
+[X-Application]
+Permissions=
+OrganizationName=ru.sashikknox
+ApplicationName=bacon2d
+ExecDBus=/usr/bin/ru.sashikknox.bacon2d

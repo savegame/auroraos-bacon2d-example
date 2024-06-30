@@ -1,0 +1,3 @@
+[submodule "bacon2d"]
+	path = bacon2d
+	url = git@github.com:obeezzy/Bacon2D.git
