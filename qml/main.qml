@@ -18,25 +18,13 @@ ApplicationWindow {
                 switch (game.state) {
                 case "main_menu":
                     loadingSplash.nextScene = Qt.resolvedUrl("scenes/MainMenu.qml")
-//                    game.pushScene(Qt.resolvedUrl("scenes/MainMenu.qml"))
                     break
                 case "game_scene":
                     loadingSplash.nextScene = Qt.resolvedUrl("scenes/GameScene.qml")
-//                    game.pushScene(Qt.resolvedUrl("scenes/GameMenu.qml"))
                     break
                 }
                 loadingSplash.opacity = 1.0
             }
-
-//            onGameStateChanged: {
-//                if (gameState == Bacon2D.Running && currentScene) {
-//                    currentScene.anchors.centerIn = parent
-//                    currentScene.width = game.width
-//                    currentScene.height = game.height
-//                    loadingSplash.opacity = 0.0
-//                }
-//            }
-
             anchors.fill: parent
 
             state: ""
@@ -52,7 +40,6 @@ ApplicationWindow {
                     sceneLoader.item.width = game.width
                     sceneLoader.item.height = game.height
                     loadingSplash.opacity = 0
-//                    game.currentScene = sceneLoader.item
                     game.pushScene(sceneLoader.item)
                 }
 
@@ -72,7 +59,7 @@ ApplicationWindow {
                 if (opacity === 1.0 && loadingSplash.nextScene.length > 0) {
                     console.log("Set source for scene loader: ", loadingSplash.nextScene)
                     game.popScene()
-                    sceneLoader.source = loadingSplash.nextScene
+                    sceneLoader.setSource(loadingSplash.nextScene, {"game" : game})
                     loadingSplash.nextScene = ""
                 }
             }

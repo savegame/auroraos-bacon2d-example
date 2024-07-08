@@ -14,12 +14,11 @@ SOURCES += \
 HEADERS += \
 
 DISTFILES += \
-    qml/components/BigText.qml \
-    qml/components/LoadingSplash.qml \
-    qml/components/TextButton.qml \
+    qml/components/* \
+    qml/effects/* \
     qml/scenes/* \
+    qml/entities/* \
     assets/background/* \
-    qml/scenes/GameScene.qml \
     rpm/ru.sashikknox.bacon2d.spec \
 
 AURORAAPP_ICONS = 86x86 108x108 128x128 172x172

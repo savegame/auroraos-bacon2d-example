@@ -23,4 +23,9 @@ Item {
         anchors.centerIn: parent
         text: "LOADING"
     }
+
+    // Lock click while lodaing screen is visible
+    MouseArea {
+        anchors.fill: parent
+    }
 }
