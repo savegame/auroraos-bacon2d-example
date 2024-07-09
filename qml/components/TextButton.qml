@@ -11,17 +11,26 @@ MouseArea {
     width: label.width
     height: label.height
 
-    Rectangle {
-        anchors.fill: parent
-
-        radius: Theme.paddingMedium
-        color: Theme.rgba("#71b3ff", root.containsPress ? Theme.opacityHigh : Theme.opacityLow)
-        border.color: Theme.rgba("black", Theme.opacityHigh)
-        border.width: Theme.dp(2)
-    }
-
     BigText {
         id: label
+        anchors.centerIn: parent
+
         color: root.containsPress ? "#71b3ff" : "white"
+
+        scale: root.containsPress ? 1.1 : 1.0
+
+        Behavior on scale {
+            NumberAnimation {
+                easing.type: Easing.OutBounce
+                duration: 200
+            }
+        }
+
+        Behavior on color {
+            ColorAnimation {
+                easing.type: Easing.OutBounce
+                duration: 200
+            }
+        }
     }
 }

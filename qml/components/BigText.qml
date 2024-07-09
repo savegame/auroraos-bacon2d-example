@@ -1,9 +1,10 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtGraphicalEffects 1.0
+import ".."
 
 Text {
-    id: root
+    id: label
 
     property color outlineColor: "black"
 
@@ -15,15 +16,17 @@ Text {
     color: "white"
     font.pixelSize: Theme.fontSizeExtraLarge * 2
     font.bold: true
+    font.family: Context.fntPixy.name
 
     layer.effect: DropShadow {
-        anchors.fill: root
+        anchors.fill: label
         horizontalOffset: 0
         verticalOffset: 0
         radius: Theme.dp(3)
         samples: 2
         spread: 1
         color: outlineColor
+        opacity: label.opacity
     }
     layer.enabled: true
 }

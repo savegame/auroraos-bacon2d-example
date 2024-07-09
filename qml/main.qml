@@ -4,6 +4,7 @@ import Bacon2D 1.0
 
 import "scenes"
 import "components"
+import "."
 
 ApplicationWindow {
     objectName: "applicationWindow"
@@ -14,64 +15,63 @@ ApplicationWindow {
         Game {
             id: game
 
-            onStateChanged: {
-                switch (game.state) {
-                case "main_menu":
-                    loadingSplash.nextScene = Qt.resolvedUrl("scenes/MainMenu.qml")
-                    break
-                case "game_scene":
-                    loadingSplash.nextScene = Qt.resolvedUrl("scenes/GameScene.qml")
-                    break
-                }
-                loadingSplash.opacity = 1.0
-            }
             anchors.fill: parent
 
-            state: ""
             gameName: "Space Ship"
+            state: ""
             ups: 40
-            currentScene: sceneLoader.item
+
+            onStateChanged: {
+                var url = ""
+                switch (game.state) {
+                case "main_menu":
+                    url = Qt.resolvedUrl("scenes/MainMenu.qml")
+                    break
+                case "game_scene":
+                    url = Qt.resolvedUrl("scenes/GameScene.qml")
+                    break
+                }
+
+                if (url !== "") {
+                    sceneLoader.nextScene = url
+                    loadingSplash.showSplash()
+                }
+            }
 
             Loader {
                 id: sceneLoader
 
+                property string nextScene
+
                 onLoaded: {
-                    sceneLoader.item.anchors.centerIn = parent
-                    sceneLoader.item.width = game.width
-                    sceneLoader.item.height = game.height
-                    loadingSplash.opacity = 0
                     game.pushScene(sceneLoader.item)
+                    loadingSplash.hideSplash()
                 }
 
-                anchors.centerIn: parent
-
-                width: game.contentWidth
-                height: game.conentHeight
+                anchors.fill: parent
                 asynchronous: true
-                visible: false
             }
         }
 
         LoadingSplash {
             id: loadingSplash
 
-            onOpacityChanged: {
-                if (opacity === 1.0 && loadingSplash.nextScene.length > 0) {
-                    console.log("Set source for scene loader: ", loadingSplash.nextScene)
+            anchors.fill: parent
+            opacity: 0.9999
+
+            onShowFinished: {
+                if (sceneLoader.nextScene !== "") {
                     game.popScene()
-                    sceneLoader.setSource(loadingSplash.nextScene, {"game" : game})
-                    loadingSplash.nextScene = ""
+                    sceneLoader.setSource(sceneLoader.nextScene, {"game" : game})
+                    sceneLoader.nextScene = ""
                 }
             }
-
-            opacity: 0.99
-
-            anchors.fill: parent
         }
+
+        Component.onCompleted: game.state = "main_menu"
     }
 
     cover: ""
     allowedOrientations: defaultAllowedOrientations
 
-    Component.onCompleted: game.state = "main_menu"
 }

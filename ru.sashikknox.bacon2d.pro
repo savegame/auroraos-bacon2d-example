@@ -6,7 +6,7 @@ CONFIG += \
     auroraapp
 DEFINES += AURORAOS
 
-PKGCONFIG += \
+PKGCONFIG += zlib
 
 SOURCES += \
     src/main.cpp \
@@ -14,12 +14,16 @@ SOURCES += \
 HEADERS += \
 
 DISTFILES += \
+    qml/main.qml \
+    qml/Context.qml \
     qml/components/* \
+    qml/qmldir \
     qml/effects/* \
     qml/scenes/* \
     qml/entities/* \
     assets/background/* \
-    rpm/ru.sashikknox.bacon2d.spec \
+    assets/fonts/* \
+    rpm/ru.sashikknox.bacon2d.spec
 
 AURORAAPP_ICONS = 86x86 108x108 128x128 172x172
 

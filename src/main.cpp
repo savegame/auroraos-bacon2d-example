@@ -1,8 +1,8 @@
-#include <auroraapp.h>
+#include <auroraapp/auroraapp.h>
 #include <QtQuick>
 #include <QQmlApplicationEngine>
 
-#include <private/plugins.h>
+#include <bacon2d/src/plugins.h>
 
 int main(int argc, char *argv[])
 {

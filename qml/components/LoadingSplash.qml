@@ -1,10 +1,38 @@
 import QtQuick 2.0
 
-Item {
-    property string nextScene
+Image {
+    property int _background: Math.random() * 3 + 1
+    property bool _showing: false
 
-    opacity: 0
+    signal showFinished()
+    signal hideFinished()
+
+    function showSplash() {
+        _showing = true
+        if (opacity == 1.0) {
+            showFinished()
+        } else {
+            _background = Math.random() * 3 + 1
+            opacity = 1.0
+        }
+    }
+
+    function hideSplash() {
+        _showing = false
+        opacity = 0.0
+    }
+
     visible: opacity > 0
+    fillMode: Image.PreserveAspectCrop
+    source: Qt.resolvedUrl("../../assets/background/loader_background_%1.png".arg(_background))
+
+    onOpacityChanged: {
+        if (opacity === 1.0 && _showing) {
+            showFinished()
+        } else if (opacity === 0.0 && !_showing) {
+            hideFinished()
+        }
+    }
 
     Behavior on opacity {
         NumberAnimation {
@@ -13,15 +41,9 @@ Item {
         }
     }
 
-    Image {
-        anchors.fill: parent
-        fillMode: Image.PreserveAspectCrop
-        source: Qt.resolvedUrl("../../assets/background/background_0.png")
-    }
-
     BigText {
         anchors.centerIn: parent
-        text: "LOADING"
+        text: qsTr("LOADING")
     }
 
     // Lock click while lodaing screen is visible
