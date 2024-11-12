@@ -6,6 +6,7 @@ import ".."
 
 Scene {
     id: root
+    objectName: "MainMenuScene"
 
     Image {
         anchors.fill: parent
@@ -31,7 +32,7 @@ Scene {
         visible: opacity > 0
 
         onVisibleChanged: {
-            if (visible) {
+            if (visible || !secondPage) {
                 return
             }
             secondPage.opacity = 1
@@ -46,7 +47,7 @@ Scene {
 
             text: qsTr("start game")
 
-            onClicked: root.game.state = "game_scene"
+            onClicked: root.game.state = "GameScene"
         }
 
         TextButton {

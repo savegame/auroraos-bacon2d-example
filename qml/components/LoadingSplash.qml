@@ -19,7 +19,11 @@ Image {
 
     function hideSplash() {
         _showing = false
-        opacity = 0.0
+        if (opacity == 0.0) {
+            hideFinished()
+        } else {
+            opacity = 0.0
+        }
     }
 
     visible: opacity > 0

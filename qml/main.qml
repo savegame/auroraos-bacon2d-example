@@ -15,6 +15,11 @@ ApplicationWindow {
         Game {
             id: game
 
+            property var allowedStates: [
+                "MainMenu",
+                "GameScene"
+            ]
+
             anchors.fill: parent
 
             gameName: "Space Ship"
@@ -22,20 +27,23 @@ ApplicationWindow {
             ups: 40
 
             onStateChanged: {
-                var url = ""
-                switch (game.state) {
-                case "main_menu":
-                    url = Qt.resolvedUrl("scenes/MainMenu.qml")
-                    break
-                case "game_scene":
-                    url = Qt.resolvedUrl("scenes/GameScene.qml")
-                    break
+                var allowed = false
+                for (var i = 0; i < allowedStates.length; i++) {
+                    if (state === allowedStates[i]) {
+                        allowed = true
+                        break
+                    }
+                }
+                var sceneName = state
+                if (!allowed) {
+                    console.log("Used not allowed state value: %1. Load %2 instead."
+                                .arg(state)
+                                .arg(allowedStates[0]))
+                    sceneName = allowedStates[0]
                 }
 
-                if (url !== "") {
-                    sceneLoader.nextScene = url
-                    loadingSplash.showSplash()
-                }
+                sceneLoader.nextScene = Qt.resolvedUrl("scenes/%1.qml".arg(sceneName))
+                loadingSplash.showSplash()
             }
 
             Loader {
@@ -57,7 +65,6 @@ ApplicationWindow {
             id: loadingSplash
 
             anchors.fill: parent
-            opacity: 0.9999
 
             onShowFinished: {
                 if (sceneLoader.nextScene !== "") {
@@ -68,7 +75,7 @@ ApplicationWindow {
             }
         }
 
-        Component.onCompleted: game.state = "main_menu"
+        Component.onCompleted: game.state = "MainMenu"
     }
 
     cover: ""

@@ -9,6 +9,7 @@ import ".."
 
 Scene {
     id: gameScene
+    objectName: "GameScene"
 
     width: game.width
     height: game.height
@@ -102,7 +103,7 @@ Scene {
         z: 2
         text: "back"
 
-        onClicked: gameScene.game.state = "main_menu"
+        onClicked: gameScene.game.state = "MainMenu"
     }
 
     BigText {
